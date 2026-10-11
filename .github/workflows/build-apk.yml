@@ -27,6 +27,12 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Configure Android Project & Permissions
+        working-directory: awaaz_ai_project
+        run: |
+          flutter create . --platforms=android --org=com.awaaz.ai --project-name=awaaz_ai
+          sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.RECORD_AUDIO"/>\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>' android/app/src/main/AndroidManifest.xml
+
       - name: Install Dependencies
         working-directory: awaaz_ai_project
         run: flutter pub get
